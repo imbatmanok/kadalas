@@ -1,11 +1,45 @@
-{
-  "bData": [
-    [1, 1, 1, 0, 0, 1, 1, 1],
-    [1, 0, 0, 1, 1, 0, 0, 1],
-    [1, 0, 0, 1, 1, 0, 0, 1],
-    [1, 1, 1, 0, 0, 1, 1, 1],
-    [1, 0, 0, 1, 1, 0, 0, 1],
-    [1, 0, 0, 1, 1, 0, 0, 1],
-    [1, 1, 1, 0, 0, 1, 1, 1]
-  ]
+let angle = 0;
+let bData = [
+  [1, 1, 1, 0, 0, 1, 1, 1],
+  [1, 0, 0, 1, 1, 0, 0, 1],
+  [1, 0, 0, 1, 1, 0, 0, 1],
+  [1, 1, 1, 0, 0, 1, 1, 1],
+  [1, 0, 0, 1, 1, 0, 0, 1],
+  [1, 0, 0, 1, 1, 0, 0, 1],
+  [1, 1, 1, 0, 0, 1, 1, 1],
+];
+
+function setup() {
+  createCanvas(400, 400);
+}
+
+function draw() {
+  background(0);
+  let mx = mouseX;
+  let my = mouseY;
+  for (let i = 0; i < width; i += 20) {
+    for (let j = 0; j < height; j += 20) {
+      let d = dist(mx, my, i, j);
+      let offset = map(d, 5, 400, 0, TWO_PI);
+      let c = map(sin(angle + offset), -1, 1, 0, 255);
+      fill(c);
+      rect(i, j, 20, 20);
+    }
+  }
+  drawB(mx, my);
+  angle += 0.05;
+}
+
+function drawB(x, y) {
+  let rectSize = 8;
+  for (let i = 0; i < bData.length; i++) {
+    for (let j = 0; j < bData[i].length; j++) {
+      if (bData[i][j] === 1) {
+        fill(95);
+      } else {
+        fill(0);
+      }
+      rect(x + j * rectSize, y - i * rectSize, rectSize, rectSize);
+    }
+  }
 }
